@@ -9,6 +9,8 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+  main:
+    allow-bean-definition-overriding: true
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
   redis:
@@ -21,3 +23,4 @@ management:
     web:
       exposure:
         include: "*"
+

@@ -1,0 +1,56 @@
+package com.xqxls.cloud.service.impl;
+
+import com.xqxls.cloud.base.TkBaseMapper;
+import com.xqxls.cloud.service.IService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+/**
+ * 基础service实现类
+ *
+ * @Author: huzhuo
+ * @Date: Created in 2023/4/25 22:10
+ */
+public class ServiceImpl<M extends TkBaseMapper<T>, T> implements IService<T> {
+
+    @Autowired
+    protected M mapper;
+
+    @Override
+    public T findById(Long id) {
+        return mapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int deleteById(Long id) {
+        return mapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int add(T entity) {
+        return mapper.insert(entity);
+    }
+
+    @Override
+    public int update(T entity) {
+        return mapper.updateByPrimaryKeySelective(entity);
+    }
+
+    @Override
+    public List<T> findAll() {
+        return mapper.selectAll();
+    }
+
+    @Override
+    public int insertBatch(List<T> list) {
+        return mapper.insertBatch(list);
+    }
+
+    @Override
+    public int deleteByIdList(List<Long> idList) {
+        return mapper.deleteByIdList(idList);
+    }
+
+
+}

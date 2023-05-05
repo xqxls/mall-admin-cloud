@@ -1,6 +1,7 @@
 package com.xqxls.cloud.controller;
 
 import com.xqxls.cloud.api.CommonResult;
+import com.xqxls.cloud.api.ResultCode;
 import com.xqxls.cloud.domain.Oauth2TokenDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -31,12 +32,14 @@ public class AuthController {
     @RequestMapping(value = "/token", method = RequestMethod.POST)
     public CommonResult<Oauth2TokenDto> postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
         OAuth2AccessToken oAuth2AccessToken = tokenEndpoint.postAccessToken(principal, parameters).getBody();
+//        if(oAuth2AccessToken == null){
+//            return CommonResult.failed(ResultCode.VALIDATE_FAILED);
+//        }
         Oauth2TokenDto oauth2TokenDto = Oauth2TokenDto.builder()
                 .token(oAuth2AccessToken.getValue())
                 .refreshToken(oAuth2AccessToken.getRefreshToken().getValue())
                 .expiresIn(oAuth2AccessToken.getExpiresIn())
                 .tokenHead("Bearer ").build();
-
         return CommonResult.success(oauth2TokenDto);
     }
 }

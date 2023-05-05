@@ -1,5 +1,7 @@
 package com.xqxls.cloud.domain;
 
+import com.xqxls.cloud.response.UmsAdminRpcResponse;
+import com.xqxls.cloud.response.UmsResourceRpcResponse;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -7,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 登录用户信息
@@ -36,18 +39,24 @@ public class SecurityUser implements UserDetails {
      */
     private Collection<SimpleGrantedAuthority> authorities;
 
+    /**
+     * 资源列表
+     */
+    private List<UmsResourceRpcResponse> resourceList;
+
     public SecurityUser() {
 
     }
 
-    public SecurityUser(UserDTO userDTO) {
-        this.setId(userDTO.getId());
-        this.setUsername(userDTO.getUsername());
-        this.setPassword(userDTO.getPassword());
-        this.setEnabled(userDTO.getStatus() == 1);
-        if (userDTO.getRoles() != null) {
+    public SecurityUser(UmsAdminRpcResponse umsAdminRpcResponse, List<UmsResourceRpcResponse> resourceList) {
+        this.setId(umsAdminRpcResponse.getId());
+        this.setUsername(umsAdminRpcResponse.getUsername());
+        this.setPassword(umsAdminRpcResponse.getPassword());
+        this.setEnabled(umsAdminRpcResponse.getStatus() == 1);
+        if (umsAdminRpcResponse.getId() != null) {
             authorities = new ArrayList<>();
-            userDTO.getRoles().forEach(item -> authorities.add(new SimpleGrantedAuthority(item)));
+            // 资源id+name作为凭证
+            resourceList.forEach(resource -> authorities.add(new SimpleGrantedAuthority(resource.getId()+":"+resource.getName())));
         }
     }
 

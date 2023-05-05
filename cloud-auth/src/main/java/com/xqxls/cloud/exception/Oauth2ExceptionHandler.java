@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @ControllerAdvice
 public class Oauth2ExceptionHandler {
+
     @ResponseBody
     @ExceptionHandler(value = OAuth2Exception.class)
     public CommonResult handleOauth2(OAuth2Exception e) {

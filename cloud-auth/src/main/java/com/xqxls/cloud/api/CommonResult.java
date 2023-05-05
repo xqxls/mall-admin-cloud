@@ -5,6 +5,7 @@ package com.xqxls.cloud.api;
  * Created by xqxls on 2019/4/19.
  */
 public class CommonResult<T> {
+
     private long code;
     private String message;
     private T data;
