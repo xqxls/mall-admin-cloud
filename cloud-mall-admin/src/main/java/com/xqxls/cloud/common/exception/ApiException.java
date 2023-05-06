@@ -1,6 +1,6 @@
 package com.xqxls.cloud.common.exception;
 
-import com.xqxls.cloud.common.api.IErrorCode;
+import com.xqxls.cloud.api.IErrorCode;
 
 /**
  * 自定义API异常

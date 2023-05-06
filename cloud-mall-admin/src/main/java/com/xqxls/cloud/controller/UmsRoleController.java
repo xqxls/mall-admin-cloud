@@ -2,7 +2,7 @@ package com.xqxls.cloud.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.xqxls.cloud.common.api.CommonPage;
-import com.xqxls.cloud.common.api.CommonResult;
+import com.xqxls.cloud.api.CommonResult;
 import com.xqxls.cloud.entity.UmsMenuEntity;
 import com.xqxls.cloud.entity.UmsResourceEntity;
 import com.xqxls.cloud.entity.UmsRoleEntity;

@@ -1,4 +1,4 @@
-package com.xqxls.cloud.common.api;
+package com.xqxls.cloud.api;
 
 /**
  * 封装API的错误码

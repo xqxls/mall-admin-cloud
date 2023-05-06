@@ -1,48 +1,59 @@
 package com.xqxls.cloud.service;
 
-import com.xqxls.cloud.constant.MessageConstant;
-import com.xqxls.cloud.domain.SecurityUser;
+import cn.dev33.satoken.secure.SaSecureUtil;
+import cn.dev33.satoken.stp.SaTokenInfo;
+import cn.dev33.satoken.stp.StpUtil;
+import com.xqxls.cloud.domain.UserDTO;
 import com.xqxls.cloud.feign.UmsAdminFeign;
 import com.xqxls.cloud.response.UmsAdminRpcResponse;
+import com.xqxls.cloud.response.UmsResourceRpcResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AccountExpiredException;
-import org.springframework.security.authentication.CredentialsExpiredException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.LockedException;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 用户管理业务类
- * Created by xqxls on 2020/6/19.
+ * Created by macro on 2020/6/19.
  */
 @Service
-public class UserServiceImpl implements UserDetailsService {
+public class UserServiceImpl{
 
     @Autowired
     private UmsAdminFeign umsAdminFeign;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UmsAdminRpcResponse umsAdminRpcResponse =  umsAdminFeign.getAdminByUsername(username).getData();
+    public UserDTO loadUserByUsername(String username) {
+        UmsAdminRpcResponse umsAdminRpcResponse = umsAdminFeign.getAdminByUsername(username).getData();
         if (Objects.isNull(umsAdminRpcResponse)) {
-            throw new UsernameNotFoundException(MessageConstant.USERNAME_PASSWORD_ERROR);
+            return null;
         }
-        SecurityUser securityUser = new SecurityUser(umsAdminRpcResponse,umsAdminFeign.getResourceList(umsAdminRpcResponse.getId()).getData());
-        if (!securityUser.isEnabled()) {
-            throw new DisabledException(MessageConstant.ACCOUNT_DISABLED);
-        } else if (!securityUser.isAccountNonLocked()) {
-            throw new LockedException(MessageConstant.ACCOUNT_LOCKED);
-        } else if (!securityUser.isAccountNonExpired()) {
-            throw new AccountExpiredException(MessageConstant.ACCOUNT_EXPIRED);
-        } else if (!securityUser.isCredentialsNonExpired()) {
-            throw new CredentialsExpiredException(MessageConstant.CREDENTIALS_EXPIRED);
-        }
-        return securityUser;
+        List<UmsResourceRpcResponse> resourceList = umsAdminFeign.getResourceList(umsAdminRpcResponse.getId()).getData();
+
+        return UserDTO.builder()
+                .id(umsAdminRpcResponse.getId())
+                .username(umsAdminRpcResponse.getUsername())
+                .password(umsAdminRpcResponse.getPassword())
+                .permissionList(resourceList.stream().map(UmsResourceRpcResponse::getUrl).collect(Collectors.toList()))
+                .build();
     }
 
+    public SaTokenInfo login(String username, String password) {
+        SaTokenInfo saTokenInfo = null;
+        UserDTO userDTO = loadUserByUsername(username);
+        if (userDTO == null) {
+            return null;
+        }
+        if (!SaSecureUtil.md5(password).equals(userDTO.getPassword())) {
+            return null;
+        }
+        // 密码校验成功后登录，一行代码实现登录
+        StpUtil.login(userDTO.getId());
+        // 将用户信息存储到Session中
+        StpUtil.getSession().set("userInfo",userDTO);
+        // 获取当前登录用户Token信息
+        saTokenInfo = StpUtil.getTokenInfo();
+        return saTokenInfo;
+    }
 }

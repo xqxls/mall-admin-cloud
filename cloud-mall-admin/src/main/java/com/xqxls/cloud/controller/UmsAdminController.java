@@ -2,7 +2,7 @@ package com.xqxls.cloud.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.xqxls.cloud.common.api.CommonPage;
-import com.xqxls.cloud.common.api.CommonResult;
+import com.xqxls.cloud.api.CommonResult;
 import com.xqxls.cloud.dto.UmsAdminRegisterDto;
 import com.xqxls.cloud.dto.UpdateAdminPasswordDto;
 import com.xqxls.cloud.entity.UmsAdminEntity;

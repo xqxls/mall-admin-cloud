@@ -1,6 +1,6 @@
 package com.xqxls.cloud.common.exception;
 
-import com.xqxls.cloud.common.api.CommonResult;
+import com.xqxls.cloud.api.CommonResult;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;

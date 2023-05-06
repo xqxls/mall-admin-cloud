@@ -2,7 +2,7 @@ package com.xqxls.cloud.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.xqxls.cloud.common.api.CommonPage;
-import com.xqxls.cloud.common.api.CommonResult;
+import com.xqxls.cloud.api.CommonResult;
 import com.xqxls.cloud.entity.UmsResourceEntity;
 import com.xqxls.cloud.response.UmsResourceRpcResponse;
 import com.xqxls.cloud.service.UmsResourceService;
@@ -61,10 +61,10 @@ public class UmsResourceController {
     @ApiOperation("分页模糊查询后台资源")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public CommonResult<CommonPage<UmsResourceEntity>> list(@RequestParam(required = false) Long categoryId,
-                                                      @RequestParam(required = false) String nameKeyword,
-                                                      @RequestParam(required = false) String urlKeyword,
-                                                      @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                                      @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+                                                            @RequestParam(required = false) String nameKeyword,
+                                                            @RequestParam(required = false) String urlKeyword,
+                                                            @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                                            @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
         PageInfo<UmsResourceEntity> resourceList = umsResourceService.list(categoryId,nameKeyword, urlKeyword, pageNum, pageSize);
         return CommonResult.success(CommonPage.restPage(resourceList));
     }

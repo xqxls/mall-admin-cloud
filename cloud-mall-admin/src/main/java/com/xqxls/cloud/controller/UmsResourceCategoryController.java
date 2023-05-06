@@ -1,6 +1,6 @@
 package com.xqxls.cloud.controller;
 
-import com.xqxls.cloud.common.api.CommonResult;
+import com.xqxls.cloud.api.CommonResult;
 import com.xqxls.cloud.entity.UmsResourceCategoryEntity;
 import com.xqxls.cloud.service.UmsResourceCategoryService;
 import io.swagger.annotations.Api;

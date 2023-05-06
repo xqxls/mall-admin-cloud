@@ -1,6 +1,6 @@
 package com.xqxls.cloud.common.exception;
 
-import com.xqxls.cloud.common.api.IErrorCode;
+import com.xqxls.cloud.api.IErrorCode;
 
 /**
  * 断言处理类，用于抛出各种API异常

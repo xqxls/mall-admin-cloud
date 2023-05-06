@@ -2,7 +2,9 @@ package com.xqxls.cloud.api;
 
 /**
  * 通用返回对象
- * Created by xqxls on 2019/4/19.
+ *
+ * @Author: huzhuo
+ * @Date: Created in 2023/4/25 22:10
  */
 public class CommonResult<T> {
     private long code;
@@ -16,6 +18,13 @@ public class CommonResult<T> {
         this.code = code;
         this.message = message;
         this.data = data;
+    }
+
+    public static <T> CommonResult<T> getCountResult(Integer count) {
+        if (count>0) {
+            return CommonResult.success(null);
+        }
+        return CommonResult.failed();
     }
 
     /**

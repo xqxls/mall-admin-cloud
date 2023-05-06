@@ -1,6 +1,6 @@
 package com.xqxls.cloud.feign;
 
-import com.xqxls.cloud.common.CommonResult;
+import com.xqxls.cloud.api.CommonResult;
 import com.xqxls.cloud.response.UmsResourceRpcResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

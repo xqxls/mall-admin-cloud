@@ -14,6 +14,7 @@
         <module>cloud-auth</module>
         <module>cloud-mall-admin</module>
         <module>cloud-mall-admin-rpc</module>
+        <module>cloud-common</module>
     </modules>
 
     <properties>
