@@ -27,7 +27,7 @@ import java.time.Duration;
  * @Date: Created in 2023/4/25 22:10
  */
 @Configuration
-public class BaseRedisConfig {
+public class RedisConfig {
 
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {

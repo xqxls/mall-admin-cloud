@@ -56,7 +56,7 @@ public class SecurityUser implements UserDetails {
         if (umsAdminRpcResponse.getId() != null) {
             authorities = new ArrayList<>();
             // 资源id+name作为凭证
-            resourceList.forEach(resource -> authorities.add(new SimpleGrantedAuthority(resource.getId()+":"+resource.getName())));
+            resourceList.forEach(resource -> authorities.add(new SimpleGrantedAuthority(resource.getUrl())));
         }
     }
 

@@ -6,13 +6,12 @@ import com.xqxls.cloud.feign.UmsResourceFeign;
 import com.xqxls.cloud.response.UmsResourceRpcResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.Set;
 
 /**
  * 资源与角色匹配关系管理业务类
@@ -21,7 +20,7 @@ import java.util.TreeMap;
 @Service
 public class ResourceServiceImpl {
 
-    private Map<String, List<String>> resourceRolesMap;
+    private Set<String> resourceRolesSet;
 
     @Autowired
     private RedisTemplate<String,Object> redisTemplate;
@@ -32,11 +31,11 @@ public class ResourceServiceImpl {
     @PostConstruct
     public void initData() {
         List<UmsResourceRpcResponse> umsResourceRpcResponseList = umsResourceFeign.findAll().getData();
-        resourceRolesMap = new TreeMap<>();
+        resourceRolesSet = new HashSet<>();
         umsResourceRpcResponseList.forEach(resource -> {
-            resourceRolesMap.put(resource.getUrl(),CollUtil.toList(resource.getId()+":"+resource.getName()));
+            resourceRolesSet.add(resource.getUrl());
         });
-        redisTemplate.opsForHash().putAll(RedisConstant.RESOURCE_ROLES_MAP, resourceRolesMap);
+        redisTemplate.opsForValue().set(RedisConstant.RESOURCE_ROLES_SET, resourceRolesSet);
     }
 
 }

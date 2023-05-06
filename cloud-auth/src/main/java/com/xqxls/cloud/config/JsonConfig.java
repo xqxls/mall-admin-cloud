@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 @Configuration
 @EnableWebMvc
-public class StaticResourceConfig implements WebMvcConfigurer {
+public class JsonConfig implements WebMvcConfigurer {
 
     @Bean
     public HttpMessageConverters fastJsonConfigure() {
