@@ -5,6 +5,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.xqxls.cloud.domain.UserDTO;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,8 +17,9 @@ public class StpInterfaceImpl implements StpInterface {
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
         // 返回此 loginId 拥有的权限码列表
-        UserDTO userDTO = (UserDTO) StpUtil.getSession().get("userInfo");
-        return userDTO.getPermissionList();
+//        UserDTO userDTO = (UserDTO) StpUtil.getSession().get("userInfo");
+//        return userDTO.getPermissionList();
+        return new ArrayList<>();
     }
 
     @Override

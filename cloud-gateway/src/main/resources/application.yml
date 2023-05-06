@@ -58,7 +58,7 @@ secure:
   ignore:
     urls: #配置白名单路径
       - "/actuator/**"
-      - "/auth/oauth/token"
+      - "/auth/user/login"
       - "/mall-admin/admin/register"
       - "/mall-admin/admin/info"
 

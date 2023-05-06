@@ -22,6 +22,8 @@ public class SaTokenConfig {
     @Autowired
     private IgnoreUrlsConfig ignoreUrlsConfig;
 
+    private String path;
+
     /**
      * 注册Sa-Token全局过滤器
      */
@@ -32,6 +34,13 @@ public class SaTokenConfig {
                 .addInclude("/**")
                 // 开放地址
                 .addExclude("/favicon.ico")
+//                .setBeforeAuth(r->{
+//                    SaRequest request = SaHolder.getRequest();
+//                    String url = request.getUrl();
+//                    path = URLUtil.getPath(url);
+//                    // 截去服务名
+//                    path = path.substring(path.indexOf("/",path.indexOf("/")+1));
+//                })
                 // 鉴权方法：每次访问进入
                 .setAuth(r -> {
                     // 获取配置文件中的白名单路径
@@ -39,11 +48,8 @@ public class SaTokenConfig {
                     // 登录认证：除登录接口都需要认证
                     SaRouter.match(Collections.singletonList("/**"), ignoreUrls, StpUtil::checkLogin);
                     // 权限认证：不同接口访问权限不同
-                    SaRequest request = SaHolder.getRequest();
-                    String url = request.getUrl();
-                    String path = URLUtil.getPath(url);
                     if(!ignoreUrls.contains(path)){
-                        SaRouter.match(path, () -> StpUtil.checkPermission(path));
+                        SaRouter.match("/admin/6", () -> StpUtil.checkPermission("/admin/6"));
                     }
                 })
                 // setAuth方法异常处理

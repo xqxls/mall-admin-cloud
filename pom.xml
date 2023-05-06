@@ -23,11 +23,9 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <java.version>1.8</java.version>
         <hutool-version>5.8.0</hutool-version>
-        <spring-boot.version>2.6.3</spring-boot.version>
-        <spring-cloud.version>2021.0.3</spring-cloud.version>
-        <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
-        <spring-cloud-starter-oauth2.version>2.2.5.RELEASE</spring-cloud-starter-oauth2.version>
-        <nimbus-jose-jwt.version>9.23</nimbus-jose-jwt.version>
+        <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
+        <spring-cloud.version>Hoxton.SR5</spring-cloud.version>
+        <spring-cloud-alibaba.version>2.2.0.RELEASE</spring-cloud-alibaba.version>
         <fastjson.version>1.2.71</fastjson.version>
     </properties>
 
@@ -61,12 +59,6 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

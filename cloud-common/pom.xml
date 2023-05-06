@@ -11,13 +11,5 @@
 
     <artifactId>cloud-common</artifactId>
 
-<!--    <dependencies>-->
-<!--        &lt;!&ndash;分页插件&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.github.pagehelper</groupId>-->
-<!--            <artifactId>pagehelper-spring-boot-starter</artifactId>-->
-<!--            <version>1.4.2</version>-->
-<!--        </dependency>-->
-<!--    </dependencies>-->
 
 </project>

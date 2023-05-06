@@ -20,7 +20,6 @@
         <lombok.version>1.18.20</lombok.version>
         <springfox-swagger.version>3.0.0</springfox-swagger.version>
         <hutool.version>5.8.9</hutool.version>
-        <jjwt.version>0.9.1</jjwt.version>
         <mapstruct.version>1.4.1.Final</mapstruct.version>
         <pagehelper.version>1.4.2</pagehelper.version>
     </properties>
@@ -88,13 +87,6 @@
             <version>${hutool.version}</version>
         </dependency>
 
-        <!--JWT(Json Web Token)登录支持-->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>${jjwt.version}</version>
-        </dependency>
-
         <!--SpringBoot校验框架-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -135,6 +127,19 @@
             <artifactId>cloud-common</artifactId>
             <version>1.0.0</version>
             <scope>compile</scope>
+        </dependency>
+
+        <!-- Sa-Token 权限认证 -->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-spring-boot-starter</artifactId>
+            <version>1.24.0</version>
+        </dependency>
+        <!-- Sa-Token 整合 Redis （使用jackson序列化方式） -->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-dao-redis-jackson</artifactId>
+            <version>1.24.0</version>
         </dependency>
 
     </dependencies>

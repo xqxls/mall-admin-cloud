@@ -17,13 +17,13 @@ import java.util.Map;
  * Created by macro on 2020/7/17.
  */
 @RestController
-@RequestMapping("/oauth")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserServiceImpl userService;
 
-    @RequestMapping(value = "/token", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public CommonResult<Map<String,String>> login(@RequestParam String username, @RequestParam String password) {
         SaTokenInfo saTokenInfo = userService.login(username, password);
         if (saTokenInfo == null) {
