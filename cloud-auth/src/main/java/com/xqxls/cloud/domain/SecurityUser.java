@@ -44,10 +44,6 @@ public class SecurityUser implements UserDetails {
      */
     private List<UmsResourceRpcResponse> resourceList;
 
-    public SecurityUser() {
-
-    }
-
     public SecurityUser(UmsAdminRpcResponse umsAdminRpcResponse, List<UmsResourceRpcResponse> resourceList) {
         this.setId(umsAdminRpcResponse.getId());
         this.setUsername(umsAdminRpcResponse.getUsername());
@@ -55,7 +51,7 @@ public class SecurityUser implements UserDetails {
         this.setEnabled(umsAdminRpcResponse.getStatus() == 1);
         if (umsAdminRpcResponse.getId() != null) {
             authorities = new ArrayList<>();
-            // 资源id+name作为凭证
+            // 资源url作为凭证
             resourceList.forEach(resource -> authorities.add(new SimpleGrantedAuthority(resource.getUrl())));
         }
     }

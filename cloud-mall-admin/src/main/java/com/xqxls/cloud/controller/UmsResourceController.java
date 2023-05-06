@@ -29,7 +29,6 @@ public class UmsResourceController {
     @Autowired
     private UmsResourceService umsResourceService;
 
-
     @ApiOperation("添加后台资源")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public CommonResult<Void> create(@RequestBody UmsResourceEntity umsResourceEntity) {

@@ -1,10 +1,8 @@
 package com.xqxls.cloud.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.xqxls.cloud.aop.annotation.WebLog;
 import com.xqxls.cloud.common.api.CommonPage;
 import com.xqxls.cloud.common.api.CommonResult;
-import com.xqxls.cloud.dto.UmsAdminLoginDto;
 import com.xqxls.cloud.dto.UmsAdminRegisterDto;
 import com.xqxls.cloud.dto.UpdateAdminPasswordDto;
 import com.xqxls.cloud.entity.UmsAdminEntity;
@@ -17,16 +15,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 后台用户表 前端控制器
@@ -38,12 +31,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/admin")
 public class UmsAdminController {
-
-    @Value("${jwt.tokenHeader}")
-    private String tokenHeader;
-
-    @Value("${jwt.tokenHead}")
-    private String tokenHead;
 
     @Autowired
     private UmsAdminService adminService;

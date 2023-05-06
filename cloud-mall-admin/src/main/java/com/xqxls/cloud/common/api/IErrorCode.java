@@ -7,6 +7,7 @@ package com.xqxls.cloud.common.api;
  * @Date: Created in 2023/4/25 22:10
  */
 public interface IErrorCode {
+
     long getCode();
 
     String getMessage();

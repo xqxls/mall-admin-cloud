@@ -4,6 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xqxls.cloud.cache.UmsAdminCacheService;
+import com.xqxls.cloud.common.cache.RedisService;
+import com.xqxls.cloud.constant.RedisConstant;
 import com.xqxls.cloud.entity.UmsResourceEntity;
 import com.xqxls.cloud.mapper.UmsResourceDao;
 import com.xqxls.cloud.service.UmsResourceService;
@@ -11,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.Date;
-import java.util.Objects;
+import javax.annotation.PostConstruct;
+import java.util.*;
 
 /**
  * 后台资源表 服务实现类
@@ -28,6 +30,25 @@ public class UmsResourceServiceImpl extends ServiceImpl<UmsResourceDao, UmsResou
 
     @Autowired
     private UmsResourceDao umsResourceDao;
+
+    @Autowired
+    private RedisService redisService;
+
+    @PostConstruct
+    public void initData() {
+        /**
+         * 这里一个可行的方案是，如果资源表存的是明确的不带模式匹配的路径，可以在初始化的时候定义一个hash类型的redis数据，然后
+         * 将资源路径作为key，资源的某种凭证组合作为value(比如id+name)，存入redis。在auth服务中可以通过当前登录用户id拿到
+         * 资源，再将资源组合转化为authorities。最后在gateway服务中，拦截用户请求，获取url，找到redis中url对应的凭证，看
+         * authorities里面是否包含访问这个url的凭证【本项目因为数据库资源url是模式串，未实现这种方案】
+         */
+        List<UmsResourceEntity> umsResourceEntityList = this.findAll();
+        Set<String> resourceRolesSet = new HashSet<>();
+        umsResourceEntityList.forEach(resource -> {
+            resourceRolesSet.add(resource.getUrl());
+        });
+        redisService.set(RedisConstant.RESOURCE_ROLES_SET, resourceRolesSet);
+    }
 
     @Override
     public int create(UmsResourceEntity umsResourceEntity) {
@@ -68,4 +89,6 @@ public class UmsResourceServiceImpl extends ServiceImpl<UmsResourceDao, UmsResou
         }
         return new PageInfo<>(umsResourceDao.selectByExample(example));
     }
+
+
 }

@@ -15,7 +15,7 @@ public class Oauth2ExceptionHandler {
 
     @ResponseBody
     @ExceptionHandler(value = OAuth2Exception.class)
-    public CommonResult handleOauth2(OAuth2Exception e) {
+    public CommonResult<Object> handleOauth2(OAuth2Exception e) {
         return CommonResult.failed(e.getMessage());
     }
 }
