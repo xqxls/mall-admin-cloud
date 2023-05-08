@@ -1,6 +1,3 @@
-## 简介
-这是一个微服务权限系统(github地址：https://github.com/xqxls/mall-admin-cloud)
-
 ## 项目内容
 
 #### 1.项目模块构建
